@@ -1,0 +1,28 @@
+<!--pages/explore/explore.wxml-->
+<view>
+  <view class="search">
+    <input placeholder="请输入想搜索的项目名或关键字" focus='true' type='text' confirm-type='search' bindconfirm='search'/>
+  </view>
+
+  <block wx:if="{{inSearching === true}}">
+    <view class="inSearchingText">
+      搜索中，请稍后...
+    </view>
+  </block>
+  <block wx:else>
+    <scroll-view scroll-y class="projects">
+      <view wx:for="{{projects}}" wx:key="item.id" class="project">
+        <view class="fullname">
+          {{item.fullName}}
+        </view>
+        <view class="description">
+          {{item.description}}
+        </view>
+        <view class="info">
+          language: {{item.language}} owner: {{item.ownerLoginName}} stars: {{item.stars}} 
+        </view>
+      </view>
+    </scroll-view>
+  </block>
+
+</view>

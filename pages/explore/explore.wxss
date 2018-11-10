@@ -1,0 +1,49 @@
+/* pages/explore/explore.wxss */
+.search {
+  display: flex;
+}
+
+.inSearchingText {
+  margin-top: 20rpx;
+  text-align:center;
+  color: #888888;
+  font-size: 12pt;
+}
+
+.search input {
+  margin-left: 10rpx;
+  margin-right: 10rpx;
+  margin-top: 10rpx;
+  border: 2rpx solid #576B95;
+  width: 100%;
+  font-size: 16pt;
+  padding: 0 2px 0 2px;
+}
+
+.projects {
+  margin-top: 20rpx;
+  display: flex;
+  flex-direction: column;
+}
+
+.project {
+  border-bottom: 1px solid #576B95;
+  padding: 10rpx;
+}
+
+.project .fullname {
+  font-size: 12pt;
+  color: #576B95;
+}
+
+.project .description {
+  margin-top: 1rpx;
+  font-size: 8pt;
+  color: #888888;
+}
+
+.project .info {
+  margin-top: 1rpx;
+  font-size: 6pt;
+  color: #000000;
+}

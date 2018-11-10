@@ -34,6 +34,7 @@ App({
     })
   },
   globalData: {
-    userInfo: null
+    userInfo: null,
+    srvUrl: "http://192.168.1.102:8888",
   }
 })
