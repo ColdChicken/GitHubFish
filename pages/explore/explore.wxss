@@ -3,13 +3,6 @@
   display: flex;
 }
 
-.inSearchingText {
-  margin-top: 20rpx;
-  text-align:center;
-  color: #888888;
-  font-size: 12pt;
-}
-
 .search input {
   margin-left: 10rpx;
   margin-right: 10rpx;

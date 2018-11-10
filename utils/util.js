@@ -2,10 +2,18 @@ const request = (url, method = "GET", data = {}, auth = false, success = undefin
   const app = getApp()
   const requestUrl = `${app.globalData.srvUrl}${url}`
   console.log(`发送 ${method} 请求到 ${requestUrl}， 认证 ${auth}， 请求报文 ${JSON.stringify(data)}`)
+  var header = {
+    'content-type': 'applicatio/json'
+  }
+  if (auth) {
+    var token = wx.getStorageSync('token')
+    header['token'] = token
+  }
   wx.request({
     url: requestUrl,
     method: method,
     data: JSON.stringify(data),
+    header: header,
     fail: function (res) {
       console.log("请求出错")
       console.log(res)

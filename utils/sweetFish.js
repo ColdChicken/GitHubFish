@@ -5,6 +5,34 @@ class SweetFishMgr {
 
   }
 
+  // 登陆
+  login(code, callback) {
+    console.log(`开始用户登陆，code: ${code}`)
+    util.request("/v1/tp/auth/login", // URL
+      "POST", // METHOD
+      {
+        code: code,
+      }, // DATA
+      false, // AUTH
+      function (res) {
+        callback(res)
+      }) // SUCCESS
+  }
+
+  // 创建项目
+  createProject(projectId, callback) {
+    console.log(`开始创建项目, projectId: ${projectId}`)
+    util.request("/v1/tp/project/create", // URL
+      "POST", // METHOD
+      {
+        projectId: projectId,
+      }, // DATA
+      true, // AUTH
+      function (res) {
+        callback(res)
+      }) // SUCCESS
+  }
+
   // 搜索项目。inputs为关键字
   searchProject(inputs, callback) {
     console.log(`开始搜索项目，搜索关键字 ${inputs}`)
