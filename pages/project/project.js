@@ -1,18 +1,20 @@
 // pages/project/project.js
+const sweetFish = require("../../utils/sweetFish.js")
+
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-
+    projects: [],
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    this.sweetFishMgr = new sweetFish.SweetFishMgr()
   },
 
   /**
@@ -26,7 +28,18 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    // 加载项目信息
+    var that = this
+    wx.showLoading({
+      title: '加载中，请稍等',
+    })
+    that.sweetFishMgr.listProjects(function (projects) {
+      console.log(projects)
+      that.setData({
+        projects: projects,
+      })
+      wx.hideLoading()
+    })
   },
 
   /**
@@ -62,5 +75,35 @@ Page({
    */
   onShareAppMessage: function () {
 
-  }
+  },
+
+  // 打开项目
+  openProject: function(e) {
+    var that = this
+    var projectId = e.currentTarget.dataset.projectid
+    wx.showLoading({
+      title: '项目打开中',
+    })
+    that.sweetFishMgr.openProject(projectId, function(res){
+      console.log(res)
+      wx.hideLoading()
+      if (res.result != "成功") {
+        wx.showModal({
+          title: "打开失败",
+          content: res.errMsg,
+          showCancel: false,
+          confirmText: "关闭",
+          confirmColor: "#888888",
+          success(e) {
+          }
+        })
+      } else {
+        // 跳转到项目专有页面。这里使用redirectTo，保证用户返回时一定是点击了页面提供的关闭按钮返回，这样才能触发关闭项目的动作
+        wx.redirectTo({
+          url: `/pages/ide/ide?projectid=${projectId}`
+        })
+      }
+      
+    })
+  },
 })

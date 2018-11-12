@@ -2,7 +2,8 @@
   "pages": [
     "pages/explore/explore",
     "pages/project/project",
-    "pages/my/my"
+    "pages/my/my",
+    "pages/ide/ide"
   ],
   "window": {
     "backgroundTextStyle": "light",

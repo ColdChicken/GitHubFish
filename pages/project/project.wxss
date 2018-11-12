@@ -1,1 +1,50 @@
 /* pages/project/project.wxss */
+.projects {
+  display: flex;
+  flex-direction: column;
+}
+
+.project {
+  border-bottom: 5rpx solid #576B95;
+  border-top: 5rpx solid #576B95;
+  margin-top: 30rpx;
+}
+
+.project .fullname {
+  text-align: center;
+  font-size: 16pt;
+  color: #576B95;
+  padding: 0 10rpx 0 10rpx;
+}
+
+.project .actions {
+  font-size: 12pt;
+  border-top: 1px solid #888888;
+  display: flex;
+  flex-direction: row;
+}
+
+.actions .open {
+  width: 20%;
+  text-align: center;
+  border-right: 1px solid #888888;
+  color: #09BB07;
+}
+
+.actions .config {
+  width: 20%;
+  text-align: center;
+  border-right: 1px solid #888888;
+}
+
+.actions .delete {
+  width: 20%;
+  text-align: center;
+  border-right: 1px solid #888888;
+  color: #E64340;
+}
+
+.actions .status {
+  width: 40%;
+  text-align: center;
+}

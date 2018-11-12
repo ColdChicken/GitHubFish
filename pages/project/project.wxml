@@ -1,2 +1,14 @@
 <!--pages/project/project.wxml-->
-<text>pages/project/project.wxml</text>
+<scroll-view scroll-y class="projects">
+  <view wx:for="{{projects}}" wx:key="item.id" class="project">
+    <view class="fullname" bindtap="openProject" data-projectid="{{item.id}}">
+      {{item.fullName}}
+    </view>
+    <view class="actions">
+      <view class="delete">删除</view>
+      <view class="config">配置</view>
+      <view class="open" bindtap="openProject" data-projectid="{{item.id}}">打开</view>
+      <view class="status">{{item.status}}</view>
+    </view>
+  </view>
+</scroll-view>
