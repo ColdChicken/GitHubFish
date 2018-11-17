@@ -1,18 +1,41 @@
 // pages/ide/ide.js
+const sweetFish = require("../../utils/sweetFish.js")
+
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-
+    projectId: -1,
+    catalog: {},
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    this.setData({
+      projectId: parseInt(options.projectid)
+    })
+    this.sweetFishMgr = new sweetFish.SweetFishMgr()
+    wx.showLoading({
+      title: '正在加载项目',
+    })
+    this.loadCatalogs(()=>{
+      wx.hideLoading()
+    })
+  },
 
+  loadCatalogs: function(callback) {
+    var that = this
+    that.sweetFishMgr.listProjectCatalog(that.data.projectId, function (catalog) {
+      console.log(catalog)
+      that.setData({
+        catalog: catalog,
+      })
+      callback()
+    })
   },
 
   /**
@@ -40,7 +63,10 @@ Page({
    * 生命周期函数--监听页面卸载
    */
   onUnload: function () {
-
+    var that = this
+    that.sweetFishMgr.closeProject(that.data.projectId, ()=>{
+      
+    })
   },
 
   /**

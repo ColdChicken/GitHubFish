@@ -69,6 +69,34 @@ class SweetFishMgr {
       }) // SUCCESS
   }
 
+  // 关闭项目
+  closeProject(projectId, callback) {
+    console.log(`开始关闭项目, projectId: ${projectId}`)
+    util.request("/v1/tp/project/close", // URL
+      "POST", // METHOD
+      {
+        projectId: projectId,
+      }, // DATA
+      true, // AUTH
+      function (res) {
+        callback(res)
+      }) // SUCCESS
+  }
+
+  // 打开项目
+  listProjectCatalog(projectId, callback) {
+    console.log(`开始列出项目目录, projectId: ${projectId}`)
+    util.request("/v1/tp/project/listcatalog", // URL
+      "POST", // METHOD
+      {
+        projectId: projectId,
+      }, // DATA
+      true, // AUTH
+      function (res) {
+        callback(res)
+      }) // SUCCESS
+  }
+
   // 搜索项目。inputs为关键字
   searchProject(inputs, callback) {
     console.log(`开始搜索项目，搜索关键字 ${inputs}`)
