@@ -1,1 +1,69 @@
 /* pages/ide/ide.wxss */
+.header {
+  display: flex;
+  flex-direction: row;
+  border-bottom: solid 2rpx #576B95;
+}
+
+.action-catalog {
+  text-align: center;
+  font-size: 16pt;
+  color: #888888;
+  width: 20%;
+}
+
+.filename {
+  text-align: center;
+  font-size: 12pt;
+  color: #576B95;
+  width: 60%;
+}
+
+.action-close {
+  text-align: center;
+  font-size: 16pt;
+  color: #888888;
+  width: 20%;
+}
+
+.catalog {
+  position:absolute;
+  border-right: solid 2rpx #576B95;
+  border-bottom: solid 2rpx #576B95;
+  background-color: #FFFFFF;
+  height: 85%;
+  width: 90%;
+  z-index: 900;
+}
+
+.catalog-data {
+  display: flex;
+  flex-direction: column;
+  height: 85%;
+}
+
+.content {
+  
+}
+
+.codes {
+  white-space:pre-wrap;
+}
+
+.up-dir {
+  border-bottom: 8rpx;
+  color: #888888;
+  font-size: 16pt;
+}
+
+.dir {
+  padding-left: 8rpx;
+  color: #576B95;
+  font-size: 14pt;
+}
+
+.file {
+  padding-left: 8rpx;
+  color: #888888;
+  font-size: 14pt;
+}

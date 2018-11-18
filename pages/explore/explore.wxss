@@ -9,7 +9,7 @@
   margin-top: 10rpx;
   border: 2rpx solid #576B95;
   width: 100%;
-  font-size: 16pt;
+  font-size: 10pt;
   padding: 0 2px 0 2px;
 }
 

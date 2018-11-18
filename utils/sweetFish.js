@@ -69,6 +69,20 @@ class SweetFishMgr {
       }) // SUCCESS
   }
 
+  // 删除项目
+  deleteProject(projectId, callback) {
+    console.log(`开始删除项目, projectId: ${projectId}`)
+    util.request("/v1/tp/project/delete", // URL
+      "POST", // METHOD
+      {
+        projectId: projectId,
+      }, // DATA
+      true, // AUTH
+      function (res) {
+        callback(res)
+      }) // SUCCESS
+  }
+
   // 关闭项目
   closeProject(projectId, callback) {
     console.log(`开始关闭项目, projectId: ${projectId}`)
@@ -106,6 +120,22 @@ class SweetFishMgr {
         inputs: inputs,
       }, // DATA
       false, // AUTH
+      function (res) {
+        callback(res)
+      }) // SUCCESS
+  }
+
+  // 打开文件
+  openFile(projectId, filePath, fileName, callback) {
+    console.log(`开始打开文件, projectId: ${projectId}, path: ${filePath}, name: ${fileName}`)
+    util.request("/v1/tp/project/action/openfile", // URL
+      "POST", // METHOD
+      {
+        projectId: projectId,
+        filePath: filePath,
+        fileName: fileName,
+      }, // DATA
+      true, // AUTH
       function (res) {
         callback(res)
       }) // SUCCESS

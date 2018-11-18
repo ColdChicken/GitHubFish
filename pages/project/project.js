@@ -8,6 +8,7 @@ Page({
    */
   data: {
     projects: [],
+    hasProject: false,
   },
 
   /**
@@ -39,8 +40,13 @@ Page({
     })
     that.sweetFishMgr.listProjects(function (projects) {
       console.log(projects)
+      var hasProject = false
+      if (projects.length > 0 ) {
+        hasProject = true
+      }
       that.setData({
         projects: projects,
+        hasProject: hasProject,
       })
       wx.hideLoading()
       callback()
@@ -82,6 +88,19 @@ Page({
    */
   onShareAppMessage: function () {
 
+  },
+
+  // 删除项目
+  deleteProject: function(e) {
+    var that = this
+    var projectId = e.currentTarget.dataset.projectid
+    wx.showLoading({
+      title: '删除项目中',
+    })
+    that.sweetFishMgr.deleteProject(projectId, function(res) {
+      wx.hideLoading()
+      that.syncProjects(() => { })
+    })
   },
 
   // 打开项目

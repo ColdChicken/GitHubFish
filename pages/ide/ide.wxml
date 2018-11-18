@@ -1,2 +1,40 @@
 <!--pages/ide/ide.wxml-->
-<text>pages/ide/ide.wxml</text>
+<view>
+  <view class="header">
+    <view class="action-catalog" bindtap="showCatalog">
+      目录
+    </view>
+    <view class="filename">
+      {{fileOpened}}
+    </view>
+    <view class="action-close" bindtap="closeProject">
+      关闭
+    </view>
+  </view>
+
+  <view wx:if="{{catalogShowing === true}}" class='catalog'>
+    <view wx:if="currentCatalogPath.length != 0" class="up-dir" bindtap="upDir">
+      上级目录
+    </view>
+    <scroll-view scroll-y class="catalog-data">
+      <block wx:for="{{currentCatalog}}" wx:key="{{index}}">
+        <block wx:if="{{item.type == '目录'}}">
+          <view class="dir" bindtap="clickDir" data-dirname="{{item.name}}">
+            {{item.name}}
+          </view>
+        </block>
+        <block wx:if="{{item.type == '文件'}}">
+          <view class="file" bindtap="clickFile" data-filename="{{item.name}}">
+            {{item.name}}
+          </view>
+        </block>
+      </block>
+    </scroll-view>
+  </view>
+
+  <scroll-view scroll-y class="content">
+  <view class="codes">
+    {{fileRawContent}}
+  </view>
+  </scroll-view>
+</view>

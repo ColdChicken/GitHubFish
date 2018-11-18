@@ -21,6 +21,7 @@ const request = (url, method = "GET", data = {}, auth = false, success = undefin
         title: '获取数据异常',
         content: '抱歉，此次操作获取数据出现异常状况，请刷新或点击后退按钮后重新打开此页面。',
       })
+      wx.hideLoading()
       return
     },
     success: function (res) {
@@ -31,6 +32,7 @@ const request = (url, method = "GET", data = {}, auth = false, success = undefin
           title: '获取数据异常',
           content: '抱歉，此次操作获取数据出现异常状况，请刷新或点击后退按钮后重新打开此页面。',
         })
+        wx.hideLoading()
         return
       }
       if (success) {

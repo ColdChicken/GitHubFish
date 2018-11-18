@@ -1,14 +1,20 @@
 <!--pages/project/project.wxml-->
 <scroll-view scroll-y class="projects">
-  <view wx:for="{{projects}}" wx:key="item.id" class="project">
-    <view class="fullname" bindtap="openProject" data-projectid="{{item.id}}">
-      {{item.fullName}}
+  <block wx:if="{{hasProject == true}}">
+    <view wx:for="{{projects}}" wx:key="item.id" class="project">
+      <view class="fullname">
+        {{item.fullName}}
+      </view>
+      <view class="actions">
+        <view class="delete" bindtap="deleteProject" data-projectid="{{item.id}}">删除</view>
+        <view class="open" bindtap="openProject" data-projectid="{{item.id}}">打开</view>
+        <view class="status">{{item.status}}</view>
+      </view>
     </view>
-    <view class="actions">
-      <view class="delete">删除</view>
-      <view class="config">配置</view>
-      <view class="open" bindtap="openProject" data-projectid="{{item.id}}">打开</view>
-      <view class="status">{{item.status}}</view>
+  </block>
+  <block wx:else>
+    <view class="notice">
+      您还未添加任何项目。请先在"探索"中搜索您感兴趣的项目，然后点击"添加"
     </view>
-  </view>
+  </block>
 </scroll-view>

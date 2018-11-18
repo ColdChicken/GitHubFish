@@ -21,10 +21,6 @@
       {
         "pagePath": "pages/project/project",
         "text": "项目"
-      },
-      {
-        "pagePath": "pages/my/my",
-        "text": "我的"
       }
     ]
   },
