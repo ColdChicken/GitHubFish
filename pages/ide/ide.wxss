@@ -30,6 +30,14 @@
   line-height: 80rpx;
 }
 
+.page-action {
+  position:fixed;
+  right: 10rpx;
+  bottom: 5rpx;
+  z-index: 800;
+  opacity: 0.3;
+}
+
 .catalog {
   position:absolute;
   border-right: solid 2rpx #576B95;
@@ -85,6 +93,16 @@
   display: flex;
   flex-direction: row;
   flex-wrap: nowrap;
+}
+
+.lineno {
+  background-color: rgb(210, 224, 255);
+  width: 70rpx;
+  border-right: solid 2rpx #576B95;
+  display: inline-block;
+  flex-shrink: 0;
+  padding-left: 5rpx;
+  margin-right: 15rpx;
 }
 
 .token {

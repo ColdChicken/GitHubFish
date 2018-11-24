@@ -23,8 +23,6 @@ Page({
     catalogShowing: true,
     // 当前用户打开的文件名
     fileOpened: "",
-    // 当前用户打开的文件内容
-    fileRawContent: "",
     // 显示的行信息
     lines: [],
 
@@ -34,13 +32,10 @@ Page({
     codeDivCap: 0,
     // 全部的行
     allLines: [],
-    // 默认显示多少屏幕数据
-    showLinesBase: 5,
-
-    // Y轴变动
-    changeY: 0.0,
-    // 当前起始屏幕
-    currentBegPos: 0,
+    
+    // 当前第几页
+    currentPage: 0,
+    pageIdx: 0,
   },
 
   /**
@@ -55,11 +50,11 @@ Page({
         var rpxR = clientWidth / 750
         var calc = clientHeight - (82 * rpxR)
         that.data.rpxR = rpxR
-        that.setData({
-          windowHeight: calc
-        });
         that.data.lineHeight = 40 * rpxR // 40rpx,见wxss定义的height
-        that.data.codeDivCap = parseInt(calc / that.data.lineHeight)
+        that.setData({
+          windowHeight: calc,
+          codeDivCap: parseInt(calc / that.data.lineHeight),
+        });
         console.log(`屏幕总高度 ${clientHeight} px, 代码块高度 ${calc} px, rpxR ${rpxR}, 行高 ${that.data.lineHeight} px, 全屏显示行 ${that.data.codeDivCap}`)
       }
     });
@@ -175,31 +170,12 @@ Page({
     that.sweetFishMgr.openFile(that.data.projectId, filepath, filename, function (result) {
       console.log(result)
       that.data.allLines = result.lines
-      that.data.currentBegPos = 0
+      that.data.currentPage = 0
+
       that.setData({
         lines: [],
-      })
-
-      that.setData({
         fileOpened: result.name,
-        fileRawContent: result.rawContent,
       })
-
-      // 如果代码数据行数不够，则在lines后面做补全
-      if (that.data.allLines.length < that.data.codeDivCap * that.data.showLinesBase) {
-        var targetLength = that.data.codeDivCap * that.data.showLinesBase - that.data.allLines.length
-        for (var i = 0; i < targetLength; i++) {
-          that.data.allLines.push([])
-        }
-      } else {
-        // 如果代码够了，则补全整数倍
-        var targetLength = that.data.codeDivCap * (parseInt(that.data.allLines.length / that.data.showLinesBase) + 1) - that.data.allLines.length
-        for (var i = 0; i < targetLength; i++) {
-          that.data.allLines.push([])
-        }
-      }
-      console.log(`每屏幕代码行数 ${that.data.codeDivCap}， 要求显示 ${that.data.showLinesBase} 屏幕, 当前总行数 ${that.data.allLines.length}`)
-
       that.syncShowLines()
 
       that.showCatalog()
@@ -207,32 +183,50 @@ Page({
     })
   },
 
-  syncShowLines: function() {
+  upPage: function(e) {
     var that = this
-    var lineChange = parseInt(this.data.changeY / this.data.lineHeight)
-    var pageChange = parseInt(lineChange / this.data.codeDivCap)
-    // 如果变动量小于1屏幕则不做任何动作
-    if (pageChange == that.data.currentBegPos && that.data.lines.length != 0) {
+    if (that.data.currentPage === 0) {
       return
     }
-    that.data.currentBegPos = pageChange
-    var endLineNum = that.data.currentBegPos + that.data.showLinesBase
-    console.log(`lineChange: ${lineChange}, begPageNum: ${pageChange}, endPageNum: ${endLineNum}, codeDivCap: ${this.data.codeDivCap}`)
+    that.data.currentPage -= 1
+    that.syncShowLines()
+  },
 
-    this.setData({
-      lines: that.data.allLines.slice(pageChange * this.data.codeDivCap, endLineNum * this.data.codeDivCap),
+  getPageNum: function() {
+    var that = this
+    if (parseInt(that.data.allLines.length / that.data.codeDivCap) * that.data.codeDivCap === that.data.allLines.length) {
+      return parseInt(that.data.allLines.length / that.data.codeDivCap)
+    } else {
+      return parseInt(that.data.allLines.length / that.data.codeDivCap) + 1
+    }
+  },
+
+  downPage: function (e) {
+    var that = this
+    if (that.data.currentPage >= that.getPageNum() - 1) {
+      return
+    }
+    that.data.currentPage += 1
+    that.syncShowLines()
+  },
+
+  syncShowLines: function() {
+    var that = this
+    // 起始行
+    var beginPos = that.data.currentPage * that.data.codeDivCap
+    // 结束行
+    var endPos = (that.data.currentPage + 1) * that.data.codeDivCap
+    if (endPos > that.data.allLines.length) {
+      endPos = that.data.allLines.length
+    }
+    that.setData({
+      lines: that.data.allLines.slice(beginPos, endPos),
+      pageIdx: that.data.currentPage,
     })
   },
 
   clickToken: function(e) {
     console.log(e)
-  },
-
-  codesScroll: function(e) {
-    //console.log(e)
-    var deltaY = e.detail.deltaY
-    this.data.changeY -= deltaY
-    this.syncShowLines()
   },
 
   /**

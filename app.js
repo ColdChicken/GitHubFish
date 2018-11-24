@@ -3,6 +3,9 @@ const sweetFish = require("./utils/sweetFish.js")
 
 App({
   onLaunch: function () {
+    wx.showLoading({
+      title: '启动中...',
+    })
     var sweetFishMgr = new sweetFish.SweetFishMgr()
 
     // 展示本地存储能力
@@ -17,6 +20,7 @@ App({
         sweetFishMgr.login(res.code, function(token) {
           console.log(`token ${token}`)
           wx.setStorageSync('token', token)
+          wx.hideLoading()
         })
       }
     })

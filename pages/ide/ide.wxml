@@ -12,6 +12,11 @@
     </view>
   </view>
 
+  <view class='page-action'>
+  <icon type="download" style="transform: rotate(180deg)" size="40" color="#888888" bindtap="upPage"/>
+  <icon type="download" size="40" color="#888888" bindtap="downPage"/>
+  </view>
+
   <view wx:if="{{catalogShowing === true}}" class='catalog'>
     <view wx:if="currentCatalogPath.length != 0" class="up-dir" bindtap="upDir">
       上级目录
@@ -33,21 +38,15 @@
   </view>
 
   <view class="content">
-    <block wx:if="{{fileRawContent != ''}}">
-      <scroll-view scroll-y scroll-x style='height: {{windowHeight + "px"}}' class="raw-codes">
-        {{fileRawContent}}
-      </scroll-view>
-    </block>
-    <block wx:else>
-      <scroll-view scroll-y scroll-x style='height: {{windowHeight + "px"}}' class="codes" bindscroll="codesScroll" >
+    <scroll-view scroll-y scroll-x style='height: {{windowHeight + "px"}}' class="codes" >
         <block wx:for="{{lines}}" wx:key="{{index}}">
           <view class="line">
+            <view class="lineno">{{pageIdx * codeDivCap + index + 1}}</view>
             <block wx:for="{{item}}" wx:key="{{item.beg_pos}}">
               <text class="token {{item.type}}" decode='true' space='nbsp' bindtap="clickToken">{{item.content}}</text>
             </block>
           </view>
         </block>
       </scroll-view>
-    </block>
   </view>
 </view>
