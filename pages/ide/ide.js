@@ -7,8 +7,9 @@ Page({
    * 页面的初始数据
    */
   data: {
-    // 代码块的大小
+    // 代码块的大小 px
     windowHeight: 0,
+    windowHeightRpx: 0,
     // rpx比率
     rpxR: 1.0,
     // 当前项目ID
@@ -53,6 +54,7 @@ Page({
         that.data.lineHeight = 40 * rpxR // 40rpx,见wxss定义的height
         that.setData({
           windowHeight: calc,
+          windowHeightRpx: calc / rpxR,
           codeDivCap: parseInt(calc / that.data.lineHeight),
         });
         console.log(`屏幕总高度 ${clientHeight} px, 代码块高度 ${calc} px, rpxR ${rpxR}, 行高 ${that.data.lineHeight} px, 全屏显示行 ${that.data.codeDivCap}`)

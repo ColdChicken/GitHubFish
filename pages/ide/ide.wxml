@@ -1,15 +1,11 @@
 <!--pages/ide/ide.wxml-->
 <view>
   <view class="header">
-    <view class="action-catalog" bindtap="showCatalog">
-      目录
-    </view>
+    <image class="action-catalog" mode="aspectFit" src="../../assets/img/mulu.svg" bindtap="showCatalog"></image>
     <view class="filename">
       {{fileOpened}}
     </view>
-    <view class="action-close" bindtap="closeProject">
-      关闭
-    </view>
+    <image class="action-close" mode="aspectFit" src="../../assets/img/guanbi.svg" bindtap="closeProject"></image>
   </view>
 
   <view class='page-action'>
@@ -17,11 +13,11 @@
   <icon type="download" size="40" color="#888888" bindtap="downPage"/>
   </view>
 
-  <view wx:if="{{catalogShowing === true}}" class='catalog'>
-    <view wx:if="currentCatalogPath.length != 0" class="up-dir" bindtap="upDir">
+  <view wx:if="{{catalogShowing === true}}" class='catalog' style='height: {{windowHeight + "px"}}' >
+    <view wx:if="{{currentCatalogPath.length != 0}}" class="up-dir" bindtap="upDir">
       上级目录
     </view>
-    <scroll-view scroll-y class="catalog-data">
+    <scroll-view scroll-y class="catalog-data" style='height: {{windowHeightRpx - 60 + "rpx"}}' >
       <block wx:for="{{currentCatalog}}" wx:key="{{index}}">
         <block wx:if="{{item.type == '目录'}}">
           <view class="dir" bindtap="clickDir" data-dirname="{{item.name}}">
