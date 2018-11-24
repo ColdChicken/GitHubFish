@@ -32,9 +32,22 @@
     </scroll-view>
   </view>
 
-  <scroll-view scroll-y class="content">
-  <view class="codes">
-    {{fileRawContent}}
+  <view class="content">
+    <block wx:if="{{fileRawContent != ''}}">
+      <scroll-view scroll-y scroll-x style='height: {{windowHeight + "px"}}' class="raw-codes">
+        {{fileRawContent}}
+      </scroll-view>
+    </block>
+    <block wx:else>
+      <scroll-view scroll-y scroll-x style='height: {{windowHeight + "px"}}' class="codes" bindscroll="codesScroll" >
+        <block wx:for="{{lines}}" wx:key="{{index}}">
+          <view class="line">
+            <block wx:for="{{item}}" wx:key="{{item.beg_pos}}">
+              <text class="token {{item.type}}" decode='true' space='nbsp' bindtap="clickToken">{{item.content}}</text>
+            </block>
+          </view>
+        </block>
+      </scroll-view>
+    </block>
   </view>
-  </scroll-view>
 </view>
